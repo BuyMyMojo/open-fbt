@@ -1,0 +1,1 @@
+$Env:RUSTFLAGS='-C target-cpu=native'; cargo build --profile=release-full-lto
