@@ -1,6 +1,8 @@
 # FBT Security - Rust
 
-This is the source code for the FBTHeaven discord bot.
+This is the source code for the [FBTHeaven discord bot](https://fbtsecurity.fbtheaven.com/).
+
+[FBT Links](https://linktr.ee/FBT_Heaven)
 
 ## about
 
