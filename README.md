@@ -102,6 +102,12 @@ I might clean this up further or add a branch for the old python version in the 
 
 good luck whoever may look upon my first large Rust project
 
+# mirrors
+
+- [GitHub](https://github.com/BuyMyMojo/open-fbt)
+- [Codeberg](https://codeberg.org/BuyMyMojo/open-fbt)
+- [Personal Gitea](https://git.buymymojo.net/BuyMyMojo/open-fbt)
+
 <p style="color: rgba(0, 0, 0, 0)">
 There is no database files or user entries here, look somewhere else <3
 </p>
