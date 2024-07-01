@@ -105,6 +105,7 @@ good luck to whoever may look upon my first large Rust project
 # Mirrors
 
 - [GitHub](https://github.com/BuyMyMojo/open-fbt)
+- [GitLab](https://gitlab.com/BuyMyMojo/open-fbt)
 - [Codeberg](https://codeberg.org/BuyMyMojo/open-fbt)
 - [Personal Gitea](https://git.buymymojo.net/BuyMyMojo/open-fbt)
 
