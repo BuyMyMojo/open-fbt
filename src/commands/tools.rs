@@ -293,7 +293,7 @@ pub async fn invite_info(
     // TODO: set your own channel ID!
 
     // log user name, id, guild name, id and url to channel
-    serenity::ChannelId()
+    serenity::ChannelId(00000000000000000)
         .send_message(ctx, |f| {
             f.embed(|e| {
                 e.title("User requested invite info")

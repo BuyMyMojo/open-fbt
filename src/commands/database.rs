@@ -541,10 +541,10 @@ pub async fn update_search_engine(ctx: Context<'_>) -> Result<(), Error> {
     ctx.defer_ephemeral().await?;
 
     // Create a client (without sending any request so that can't fail)
-    let client = Client::new(MEILISEARCH_HOST, MEILISEARCH_API_KEY);
+    let client = Client::new(MEILISEARCH_HOST, Some(MEILISEARCH_API_KEY));
 
     // connect to index "entries"
-    let entries = client.index("entries");
+    let entries = client?.index("entries");
 
     let msg = ctx
         .send(|b| b.content("Connected to search engine"))
