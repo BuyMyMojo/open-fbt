@@ -25,9 +25,9 @@ pub fn verbose_mode() -> bool {
 /// Open a tokio redis connection
 #[cfg(feature = "database")]
 #[instrument()]
-pub async fn open_redis_connection() -> Result<redis::aio::Connection, anyhow::Error> {
+pub async fn open_redis_connection() -> Result<redis::aio::MultiplexedConnection, anyhow::Error> {
     let redis_connection = redis::Client::open(REDIS_ADDR)?
-        .get_tokio_connection()
+        .get_multiplexed_tokio_connection()
         .await?;
 
     Ok(redis_connection)
@@ -38,7 +38,7 @@ pub async fn open_redis_connection() -> Result<redis::aio::Connection, anyhow::E
 #[instrument(skip(con))]
 pub async fn set_guild_settings(
     ctx: Context<'_>,
-    con: &mut redis::aio::Connection,
+    con: &mut redis::aio::MultiplexedConnection,
     settings: GuildSettings,
 ) -> Result<(), Error> {
     let json = serde_json::to_string(&settings).unwrap();
@@ -64,7 +64,7 @@ pub async fn set_guild_settings(
 #[instrument(skip(con))]
 pub async fn auth(
     ctx: Context<'_>,
-    con: &mut redis::aio::Connection,
+    con: &mut redis::aio::MultiplexedConnection,
     uid: String,
 ) -> Result<(), Error> {
     redis::cmd("SADD")

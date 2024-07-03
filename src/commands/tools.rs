@@ -1,4 +1,4 @@
-use chrono::NaiveDateTime;
+use chrono::DateTime;
 use poise::serenity_prelude::{self as serenity, AttachmentType, RichInvite};
 use rusted_fbt_lib::{
     checks::guild_auth_check,
@@ -26,11 +26,11 @@ pub async fn account_age(
     #[allow(clippy::cast_possible_truncation)]
     // this shouldn't be able to break but just in case I'm making the `unwrap_or` output NaiveDateTime::MIN
     let date_time_stamp =
-        NaiveDateTime::from_timestamp_opt(unix_timecode as i64, 0).unwrap_or(NaiveDateTime::MIN);
+        DateTime::from_timestamp(unix_timecode as i64, 0).unwrap_or(DateTime::UNIX_EPOCH);
 
     let age = chrono::Utc::now()
         .naive_utc()
-        .signed_duration_since(date_time_stamp)
+        .signed_duration_since(date_time_stamp.naive_local())
         .num_days();
 
     ctx.say(format!(
@@ -56,7 +56,7 @@ pub async fn creation_date(
     #[allow(clippy::cast_possible_truncation)]
     // this shouldn't be able to break but just in case I'm making the `unwrap_or` output NaiveDateTime::MIN
     let date_time_stamp =
-        NaiveDateTime::from_timestamp_opt(unix_timecode as i64, 0).unwrap_or(NaiveDateTime::MIN);
+        DateTime::from_timestamp(unix_timecode as i64, 0).unwrap_or(DateTime::UNIX_EPOCH);
 
     ctx.say(format!("Created/Joined on {date_time_stamp}"))
         .await?;
@@ -277,11 +277,11 @@ pub async fn invite_info(
     #[allow(clippy::cast_possible_truncation)]
     // this shouldn't be able to break but just in case I'm making the `unwrap_or` output NaiveDateTime::MIN
     let date_time_stamp =
-        NaiveDateTime::from_timestamp_opt(unix_timecode as i64, 0).unwrap_or(NaiveDateTime::MIN);
+    DateTime::from_timestamp(unix_timecode as i64, 0).unwrap_or(DateTime::UNIX_EPOCH);
 
     let age = chrono::Utc::now()
         .naive_utc()
-        .signed_duration_since(date_time_stamp)
+        .signed_duration_since(date_time_stamp.naive_local())
         .num_days();
 
     let is_user_in_db: Option<String> =

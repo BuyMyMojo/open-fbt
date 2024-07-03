@@ -36,7 +36,7 @@ pub async fn pog_be_gone(
                     let mut hits: Vec<&str> = Vec::new();
 
                     for word in words {
-                        POG_RE.find(word).map_or((), |pog| {
+                        let _ = POG_RE.find(word).map_or((), |pog| {
                             hits.push(pog.as_str());
                         });
                     }

@@ -1,7 +1,7 @@
 use crate::structs::{GuildSettings, UserInfo, WaybackResponse, WaybackStatus};
 use crate::utils::snowflake_to_unix;
 use crate::vars::FBT_GUILD_ID;
-use chrono::NaiveDateTime;
+// use chrono::NaiveDateTime;
 use chrono::Utc;
 use chrono_tz::Australia::Melbourne;
 use colored::Colorize;
@@ -90,6 +90,8 @@ pub async fn alt_kicker(
     ctx: &serenity::Context,
     member: &serenity::Member,
 ) -> Result<(), Box<dyn std::error::Error + Send + Sync>> {
+    use chrono::DateTime;
+
     use crate::utils::open_redis_connection;
     use std::collections::HashSet;
 
@@ -133,12 +135,11 @@ pub async fn alt_kicker(
 
                 #[allow(clippy::pedantic)]
                 // it literally only take's i64, no need to warn about truncation here.
-                let date_time_stamp = NaiveDateTime::from_timestamp_opt(unix_timecode as i64, 0)
-                    .unwrap_or(NaiveDateTime::MIN);
+                let date_time_stamp = DateTime::from_timestamp(unix_timecode as i64, 0).unwrap_or(DateTime::UNIX_EPOCH);
 
                 let age = chrono::Utc::now()
                     .naive_utc()
-                    .signed_duration_since(date_time_stamp)
+                    .signed_duration_since(date_time_stamp.naive_local())
                     .num_days();
 
                 // Compare user age

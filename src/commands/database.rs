@@ -187,6 +187,7 @@ pub async fn search(
     ctx: Context<'_>,
     #[description = "Member to search for. This must be a user ID."] user_id: String,
 ) -> Result<(), Error> {
+    use chrono::DateTime;
     use pastemyst::paste::*;
     use pastemyst::str;
     use poise::serenity_prelude::User;
@@ -381,12 +382,11 @@ pub async fn search(
 
     #[allow(clippy::cast_possible_truncation)]
     // this shouldn't be able to break but just in case I'm making the `unwrap_or` output NaiveDateTime::MIN
-    let date_time_stamp = chrono::NaiveDateTime::from_timestamp_opt(unix_timecode as i64, 0)
-        .unwrap_or(chrono::NaiveDateTime::MIN);
+    let date_time_stamp = DateTime::from_timestamp(unix_timecode as i64, 0).unwrap_or(DateTime::UNIX_EPOCH);
 
     let age = chrono::Utc::now()
         .naive_utc()
-        .signed_duration_since(date_time_stamp)
+        .signed_duration_since(date_time_stamp.naive_local())
         .num_days();
 
     let is_user_in_db: Option<String> = check_username_against_db(ctx.author().id.0).await.unwrap();
@@ -626,6 +626,8 @@ pub async fn footprint_lookup(
         BlacklistOutput,
     >,
 ) -> Result<(), Error> {
+    use chrono::DateTime;
+
     ctx.defer().await?;
 
     let mut con = open_redis_connection().await?;
@@ -929,12 +931,11 @@ pub async fn footprint_lookup(
 
     #[allow(clippy::cast_possible_truncation)]
     // this shouldn't be able to break but just in case I'm making the `unwrap_or` output NaiveDateTime::MIN
-    let date_time_stamp = chrono::NaiveDateTime::from_timestamp_opt(unix_timecode as i64, 0)
-        .unwrap_or(chrono::NaiveDateTime::MIN);
+    let date_time_stamp = DateTime::from_timestamp(unix_timecode as i64, 0).unwrap_or(DateTime::UNIX_EPOCH);
 
     let age = chrono::Utc::now()
         .naive_utc()
-        .signed_duration_since(date_time_stamp)
+        .signed_duration_since(date_time_stamp.naive_local())
         .num_days();
 
     let is_user_in_db: Option<String> =
