@@ -20,7 +20,7 @@ database = []
 beta = []
 
 [dependencies]
-poise = { version = "0.6.1", features = [
+poise = { version = "0.5.6", features = [
     "cache",
     "collector",
 ] }
