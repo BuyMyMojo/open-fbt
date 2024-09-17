@@ -24,14 +24,14 @@ here are the "folders" and their descriptions:
   - This is a [JSON](https://redis.io/docs/latest/develop/data-types/json/) entry of users who are cleared as okay in the DB after being flagged
   - JSON format:
 
-        ```JSON
-        {
-            "user_id": "0000000000000000000",
-            "username": "TestUsername#0001",
-            "where_found": "Name of guild",
-            "reason": "Admin enters custom reason here"
-        }
-        ```
+    ```json
+    {
+        "user_id": "0000000000000000000",
+        "username": "TestUsername#0001",
+        "where_found": "Name of guild",
+        "reason": "Admin enters custom reason here"
+    }
+    ```
 
 - `feedback:<timestamp>-<DiscordUserID>-<DiscordUserName>`
   - This is just a [String](https://redis.io/docs/latest/develop/data-types/strings/) containing whatever feedback they put in the feedback command
